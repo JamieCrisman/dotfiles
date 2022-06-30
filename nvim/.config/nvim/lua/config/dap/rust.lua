@@ -3,7 +3,7 @@ local M = {}
 function M.setup()
     local dap = require("dap")
 
-    cmd = vim.env.RUSTLLDB_PATH or "/home/jamie/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
+    local cmd = vim.env.RUSTLLDB_PATH or vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/adapter/codelldb"
     dap.adapters.codelldb = function(on_adapter)
         -- This asks the system for a free port
         local tcp = vim.loop.new_tcp()
