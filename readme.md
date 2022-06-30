@@ -4,9 +4,11 @@ checkout + link with stow
 
 ```
 sudo apt install stow
+brew install stow
 ```
 
-In home/~ run
+checking out this repo from ~
+cd into dotfiles and run
 
 ```
 stow nvim
