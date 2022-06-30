@@ -13,6 +13,7 @@ function M.setup()
         },
     }
     tele.load_extension "fzf"
+    tele.load_extension "harpoon"
     -- tele.load_extension "project"
 
     -- local actions = require "telescope.actions"

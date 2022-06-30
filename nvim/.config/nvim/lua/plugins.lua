@@ -112,6 +112,7 @@ function M.setup()
 	require("config.neoscroll").setup()
 	require("config.tree").setup()
 	require("config.dap").setup()
+	require("config.harpoon").setup()
 	require('rust-tools').setup({})
 	require('rust-tools.runnables').runnables()
 
