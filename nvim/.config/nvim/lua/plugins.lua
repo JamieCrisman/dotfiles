@@ -95,6 +95,7 @@ function M.setup()
 		use { -- smooth scroller
 			'karb94/neoscroll.nvim',
 		}
+		use 'tpope/vim-commentary'
 		use 'windwp/nvim-autopairs'
 		use 'folke/todo-comments.nvim'
 		use 'ThePrimeagen/harpoon'
