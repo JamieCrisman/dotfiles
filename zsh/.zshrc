@@ -97,6 +97,7 @@ plugins=(git nvm autojump fzf zsh-interactive-cd golang rust tmux)
 source $ZSH/oh-my-zsh.sh
 [ -f "$HOME/system-specific.sh" ] && source $HOME/system-specific.sh
 [ -x "$(command -v batcat)" ] && alias cat="batcat" 
+[ -x "$(command -v exa)" ] && alias ls="exa" 
 
 # User configuration
 
