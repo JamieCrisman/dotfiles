@@ -1,0 +1,1 @@
+xrandr --output HDMI-0 --mode 2560x1440 --rate 120 --scale 1.4x1.4
