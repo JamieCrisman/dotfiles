@@ -47,6 +47,7 @@ function M.setup()
 		}
 		use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
 		use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
+		use "rebelot/kanagawa.nvim"
 		use 'nvim-lualine/lualine.nvim' -- Fancier statusline
 		use 'nvim-lua/popup.nvim'
 
