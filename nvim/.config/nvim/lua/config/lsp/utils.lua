@@ -104,6 +104,7 @@ function M.lsp_exit(client, bufnr)
 end
 
 function M.lsp_attach(client, bufnr)
+  require "lsp-format".on_attach(client) 
   M.lsp_config(client, bufnr)
   -- M.lsp_highlight(client, bufnr)
   M.lsp_diagnostics()

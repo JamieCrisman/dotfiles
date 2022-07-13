@@ -101,6 +101,7 @@ function M.setup()
 		use 'folke/todo-comments.nvim'
 		use 'ThePrimeagen/harpoon'
 		use { "akinsho/toggleterm.nvim" }
+		use "lukas-reineke/lsp-format.nvim"
 	end
 
 	pcall(require, "packer_compiled")
