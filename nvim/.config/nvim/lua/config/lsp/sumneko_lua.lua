@@ -15,6 +15,13 @@ function M.config(installed_server)
       cmd_env = installed_server._default_options.cmd_env,
       settings = {
         Lua = {
+          format = {
+            enable = false,
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+            },
+          },
           telemetry = { enable = false },
           runtime = {
             version = "LuaJIT",

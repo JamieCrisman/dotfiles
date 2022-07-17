@@ -1,0 +1,5 @@
+[*.lua]
+indent_style = space
+indent_size = 2
+tab_width = 2
+call_arg_parentheses = unambiguous_remove_string_only

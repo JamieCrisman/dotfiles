@@ -32,6 +32,9 @@ bindkey "\e\e[C" forward-word
 bindkey "\e[1;3D" backward-word
 bindkey "\e[1;3C" forward-word
 
+# so auto complete sees .hidden files
+setopt globdots
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
