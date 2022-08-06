@@ -25,6 +25,7 @@ function M.lsp_config(client, bufnr)
   require("lsp_signature").on_attach {
     bind = true,
     handler_opts = { border = "rounded" },
+    floating_window_off_y = -2,
   }
 
   local function buf_set_option(...)

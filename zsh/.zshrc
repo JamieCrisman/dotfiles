@@ -133,4 +133,7 @@ mkdircd() {
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 
+# because this happens a lot for me for some reason
+alias nivm="nvim"
+
 export GPG_TTY=$TTY
