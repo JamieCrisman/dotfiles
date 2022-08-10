@@ -68,3 +68,6 @@ vim.cmd [[
 vim.g.rainbow_active = 1
 vim.cmd [[let g:rainbow_conf = {
 \	'guifgs': ['DarkSeaGreen2', 'darkorange3', 'seagreen3', 'HotPink']}]]
+
+vim.g.navic_silence = true
+vim.o.statusline = "%f %h%w%m%r %{%v:lua.require'nvim-navic'.get_location()%} %=%-14.(%l,%c%V%) %P"

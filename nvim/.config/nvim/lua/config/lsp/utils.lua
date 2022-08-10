@@ -100,6 +100,7 @@ function M.lsp_attach(client, bufnr)
   M.lsp_config(client, bufnr)
   -- M.lsp_highlight(client, bufnr)
   M.lsp_diagnostics()
+  require("nvim-navic").attach(client, bufnr)
   require("lsp-format").on_attach(client)
 end
 

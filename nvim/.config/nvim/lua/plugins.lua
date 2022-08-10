@@ -100,6 +100,10 @@ function M.setup()
     use "ThePrimeagen/harpoon"
     use { "akinsho/toggleterm.nvim" }
     use "lukas-reineke/lsp-format.nvim"
+    use {
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig",
+    }
   end
 
   pcall(require, "packer_compiled")
