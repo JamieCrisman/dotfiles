@@ -78,7 +78,6 @@ function M.setup()
     use "hrsh7th/cmp-nvim-lsp"
     use "saadparwaiz1/cmp_luasnip"
     use "L3MON4D3/LuaSnip" -- Snippets plugin
-    use "luochen1990/rainbow"
     use "easymotion/vim-easymotion"
     -- dap
     use "mfussenegger/nvim-dap"
@@ -103,6 +102,16 @@ function M.setup()
     use {
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig",
+    }
+    use "p00f/nvim-ts-rainbow"
+    use {
+      "Pocco81/true-zen.nvim",
+      config = function()
+        require("true-zen").setup {
+          -- your config goes here
+          -- or just leave it empty :)
+        }
+      end,
     }
   end
 

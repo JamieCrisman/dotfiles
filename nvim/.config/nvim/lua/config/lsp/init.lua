@@ -2,7 +2,7 @@ local M = {}
 
 local lsp_providers = {
   -- rust_analyzer = true,
-  --tsserver = true,
+  tsserver = true,
   -- pyright = true,
   gopls = true,
   sumneko_lua = true,
