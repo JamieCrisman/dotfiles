@@ -31,10 +31,12 @@ function M.setup()
       "toml",
       "yaml",
       "zig",
+      "hcl",
       "proto",
     },
     rainbow = {
       enable = true,
+      max_file_lines = 8000,
       colors = {
         "#E06C75",
         "#E5C07B",
