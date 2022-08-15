@@ -21,6 +21,9 @@ function M.config(installed_server)
     on_init = lsputils.lsp_init,
     on_exit = lsputils.lsp_exit,
     flags = { debounce_text_changes = 150 },
+    settings = {
+      gopls = { buildFlags = { "-tags=integration" } },
+    },
   }
 end
 
