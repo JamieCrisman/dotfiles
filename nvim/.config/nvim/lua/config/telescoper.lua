@@ -7,7 +7,7 @@ function M.setup()
   tele.load_extension "harpoon"
   -- tele.load_extension "project"
 
-  -- local actions = require "telescope.actions"
+  local actions = require "telescope.actions"
 
   tele.setup {
     find_command = {
