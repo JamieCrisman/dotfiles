@@ -86,3 +86,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_set_keymap("v", "J", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "K", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>s",
+  ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
+  { noremap = true, silent = true }
+)
