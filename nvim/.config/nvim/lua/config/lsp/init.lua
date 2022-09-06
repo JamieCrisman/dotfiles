@@ -6,6 +6,7 @@ local lsp_providers = {
   -- pyright = true,
   gopls = true,
   sumneko_lua = true,
+  elixirls = true,
   -- jsonls = true,
 }
 

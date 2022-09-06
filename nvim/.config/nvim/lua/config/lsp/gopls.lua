@@ -6,7 +6,7 @@ function M.config(installed_server)
   return {
     -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
     experimentalPostfixCompletions = true,
-    analyses = { unusedparams = true, unreachable = false },
+    analyses = { unusedparams = true, nilness = true, unusedvariable = true, shadow = true },
     codelenses = { generate = true, gc_details = true, test = true, tidy = true, upgrade_dependency = true },
     usePlaceholders = true,
     completeUnimported = true,
@@ -22,7 +22,20 @@ function M.config(installed_server)
     on_exit = lsputils.lsp_exit,
     flags = { debounce_text_changes = 150 },
     settings = {
-      gopls = { buildFlags = { "-tags=integration" } },
+      gopls = {
+        buildFlags = { "-tags=integration" },
+        -- it's not clear to me where this is supposed to go lol
+        staticcheck = true,
+        gofumpt = true,
+        matcher = "fuzzy",
+        experimentalDiagnosticsDelay = "200ms",
+        symbolMatcher = "fuzzy",
+        usePlaceholders = true,
+        completeUnimported = true,
+        experimentalPostfixCompletions = true,
+        analyses = { unusedparams = true, nilness = true, unusedvariable = true },
+        codelenses = { generate = true, gc_details = true, test = true, tidy = true, upgrade_dependency = true },
+      },
     },
   }
 end

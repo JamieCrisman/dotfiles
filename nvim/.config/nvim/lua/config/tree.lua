@@ -13,6 +13,7 @@ function M.setup()
   -- }
 
   require("nvim-treesitter.configs").setup {
+    auto_install = true,
     ensure_installed = {
       "html",
       "lua",
@@ -27,6 +28,7 @@ function M.setup()
       "gomod",
       "gowork",
       "json",
+      "elixir",
       "nix",
       "toml",
       "yaml",
@@ -69,6 +71,7 @@ function M.setup()
     indent = {
       enable = true,
     },
+    autopairs = { enable = true },
     textobjects = {
       select = {
         enable = true,

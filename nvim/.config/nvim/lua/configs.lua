@@ -77,3 +77,9 @@ vim.o.statusline = "%f %h%w%m%r %{%v:lua.require'nvim-navic'.get_location()%} %=
 require("kanagawa").setup {}
 vim.cmd "colorscheme kanagawa"
 -- end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "*.txt", "*.md", "*.tex", "gitcommit", "gitrebase" },
+  command = "setlocal spell",
+  group = vim.api.nvim_create_augroup("Spell", { clear = true }),
+})

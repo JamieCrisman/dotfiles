@@ -58,7 +58,7 @@ function M.setup()
     use { "nvim-lua/plenary.nvim" }
 
     -- Highlight, edit, and navigate code using a fast incremental parsing library
-    use { "nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     -- Additional textobjects for treesitter
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "nvim-treesitter/nvim-treesitter-context"
@@ -76,9 +76,22 @@ function M.setup()
     }
     use { "folke/lua-dev.nvim", event = "VimEnter" }
     use "hrsh7th/nvim-cmp" -- Autocompletion plugin
+    use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/cmp-nvim-lsp-signature-help"
     use "saadparwaiz1/cmp_luasnip"
-    use "L3MON4D3/LuaSnip" -- Snippets plugin
+    use "lukas-reineke/cmp-rg"
+    use { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } }
+    use {
+      "L3MON4D3/LuaSnip",
+      config = function()
+        require("luasnip").setup {
+          -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
+          region_check_events = "CursorHold,InsertLeave,InsertEnter",
+          delete_check_events = "TextChanged,InsertEnter",
+        }
+      end,
+    }
     use "easymotion/vim-easymotion"
     -- dap
     use "mfussenegger/nvim-dap"
@@ -106,6 +119,7 @@ function M.setup()
     }
     use "p00f/nvim-ts-rainbow"
     use { "rose-pine/neovim", as = "rose-pine", tag = "v1.*" }
+    use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" } }
     use {
       "Pocco81/true-zen.nvim",
       config = function()
@@ -134,12 +148,13 @@ function M.setup()
   -- }
   require "configs"
 
-  require("config.cmp").setup()
   require("config.lsp.init").setup()
+  require("config.cmp").setup()
   require("config.telescoper").setup()
   require("config.neoscroll").setup()
   require("config.tree").setup()
   require("config.dap").setup()
+  require("config.todo").setup()
   require("config.harpoon").setup()
   require("rust-tools").setup {}
   require("rust-tools.runnables").runnables()
