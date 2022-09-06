@@ -3,17 +3,6 @@ local M = {}
 function M.setup()
   local tele = require "telescope"
   local action_layout = require "telescope.actions.layout"
-  tele.setup {
-    defaults = {
-      mappings = {
-        i = {
-          ["<C-u>"] = false,
-          ["<C-d>"] = false,
-          ["?"] = action_layout.toggle_preview,
-        },
-      },
-    },
-  }
   tele.load_extension "fzf"
   tele.load_extension "harpoon"
   -- tele.load_extension "project"
@@ -46,6 +35,14 @@ function M.setup()
       file_ignore_patterns = {
         "node_modules",
         ".git/",
+      },
+      mappings = {
+        i = {
+          ["<esc>"] = actions.close,
+          ["<C-u>"] = false,
+          ["<C-d>"] = false,
+          ["?"] = action_layout.toggle_preview,
+        },
       },
     },
   }

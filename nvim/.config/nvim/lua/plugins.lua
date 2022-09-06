@@ -84,7 +84,9 @@ function M.setup()
     use { "tzachar/cmp-fuzzy-buffer", requires = { "hrsh7th/nvim-cmp", "tzachar/fuzzy.nvim" } }
     use {
       "L3MON4D3/LuaSnip",
+      requires = { "onsails/lspkind-nvim" },
       config = function()
+        require("lspkind").init()
         require("luasnip").setup {
           -- see: https://github.com/L3MON4D3/LuaSnip/issues/525
           region_check_events = "CursorHold,InsertLeave,InsertEnter",

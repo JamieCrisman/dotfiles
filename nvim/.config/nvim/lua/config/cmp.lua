@@ -18,6 +18,29 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
+    window = {
+      documentation = cmp.config.window.bordered(),
+      completion = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+        col_offset = -3,
+        side_padding = 0,
+      },
+    },
+    formatting = {
+      fields = { "kind", "abbr", "menu" },
+      format = function(entry, item)
+        local kind = require("lspkind").cmp_format {
+          mode = "symbol_text",
+          maxwidth = 50,
+        }(entry, item)
+        local strings = vim.split(kind.kind, "%s", {
+          trimempty = true,
+        })
+        kind.kind = " " .. strings[1] .. " "
+        kind.menu = "    (" .. strings[2] .. ")"
+        return kind
+      end,
+    },
     mapping = {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
