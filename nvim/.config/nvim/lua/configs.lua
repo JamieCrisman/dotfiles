@@ -67,3 +67,13 @@ vim.cmd [[
 
 vim.g.navic_silence = true
 vim.o.statusline = "%f %h%w%m%r %{%v:lua.require'nvim-navic'.get_location()%} %=%-14.(%l,%c%V%) %P"
+
+-- local t = tonumber(os.date "%H")
+-- if t >= 7 and t < 16 then
+--   vim.o.background = "light"
+--   require("rose-pine").setup {}
+--   vim.cmd "colorscheme rose-pine"
+-- else
+require("kanagawa").setup {}
+vim.cmd "colorscheme kanagawa"
+-- end

@@ -14,7 +14,7 @@ function M.setup()
         "json",
         -- "typescript",
         "yaml",
-        -- "markdown",
+        "markdown",
         -- "typescriptreact",
         -- "typescript.tsx",
       },

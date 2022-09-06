@@ -58,9 +58,10 @@ function M.setup()
     use { "nvim-lua/plenary.nvim" }
 
     -- Highlight, edit, and navigate code using a fast incremental parsing library
-    use "nvim-treesitter/nvim-treesitter"
+    use { "nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
     -- Additional textobjects for treesitter
     use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "nvim-treesitter/nvim-treesitter-context"
 
     use { "williamboman/nvim-lsp-installer" }
     use { "jose-elias-alvarez/null-ls.nvim" }
@@ -104,6 +105,7 @@ function M.setup()
       requires = "neovim/nvim-lspconfig",
     }
     use "p00f/nvim-ts-rainbow"
+    use { "rose-pine/neovim", as = "rose-pine", tag = "v1.*" }
     use {
       "Pocco81/true-zen.nvim",
       config = function()
@@ -118,7 +120,18 @@ function M.setup()
   pcall(require, "packer_compiled")
   require("packer").init(conf)
   require("packer").startup(setup)
-  require("kanagawa").setup {}
+  -- local t = tonumber(os.date("%H"))
+  -- if t >= 7 and t "%H" < 16 then
+  --  require("nightfox").setup {}
+  --  vim.cmd "colorscheme nightfox"
+  -- else
+  --  require("kanagawa").setup {}
+  --  vim.cmd "colorscheme kanagawa"
+  --end
+  -- require("luasnip").setup {
+  --   region_check_events = "CursorHold,InsertLeave,InsertEnter",
+  --   delete_check_events = "TextChanged,InsertEnter",
+  -- }
   require "configs"
 
   require("config.cmp").setup()
