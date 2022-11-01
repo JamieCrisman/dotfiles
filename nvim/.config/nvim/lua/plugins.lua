@@ -74,7 +74,7 @@ function M.setup()
     use {
       "simrat39/rust-tools.nvim",
     }
-    use { "folke/lua-dev.nvim", event = "VimEnter" }
+    use "folke/neodev.nvim"
     use "hrsh7th/nvim-cmp" -- Autocompletion plugin
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-nvim-lsp"
@@ -122,6 +122,7 @@ function M.setup()
     use "p00f/nvim-ts-rainbow"
     use { "rose-pine/neovim", as = "rose-pine", tag = "v1.*" }
     use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" } }
+    use "simrat39/symbols-outline.nvim"
     use {
       "Pocco81/true-zen.nvim",
       config = function()
@@ -131,6 +132,7 @@ function M.setup()
         }
       end,
     }
+    use "ThePrimeagen/vim-be-good"
   end
 
   pcall(require, "packer_compiled")
@@ -160,6 +162,7 @@ function M.setup()
   require("config.harpoon").setup()
   require("rust-tools").setup {}
   require("rust-tools.runnables").runnables()
+  require("symbols-outline").setup()
 end
 
 return M

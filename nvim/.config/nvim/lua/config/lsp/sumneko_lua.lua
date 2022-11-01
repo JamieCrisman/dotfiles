@@ -45,10 +45,10 @@ end
 function M.setup(installed_server)
   local opts = {}
   installed_server:setup(opts)
+  require("neodev").setup()
 
-  local luadev = require("lua-dev").setup(M.config(installed_server))
   local lspconfig = require "lspconfig"
-  lspconfig.sumneko_lua.setup(luadev)
+  lspconfig.sumneko_lua.setup(M.config(installed_server))
 end
 
 return M
