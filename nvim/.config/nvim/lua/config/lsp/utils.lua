@@ -2,7 +2,16 @@ local M = {}
 
 function M.lsp_diagnostics()
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
+    virtual_text = false,
+    severity_sort = true,
+    float = {
+      focusable = false,
+      style = "minimal",
+      border = "rounded",
+      source = "always",
+      header = "",
+      prefix = "",
+    },
     underline = false,
     signs = true,
     update_in_insert = false,
@@ -10,7 +19,8 @@ function M.lsp_diagnostics()
   })
 
   local on_references = vim.lsp.handlers["textDocument/references"]
-  vim.lsp.handlers["textDocument/references"] = vim.lsp.with(on_references, { loclist = true, virtual_text = true })
+  vim.lsp.handlers["textDocument/references"] =
+    vim.lsp.with(on_references, { loclist = true, virtual_text = true, border = "rounded" })
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
@@ -19,6 +29,7 @@ function M.lsp_diagnostics()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
     border = "rounded",
   })
+  vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.with(vim.lsp.handlers.on_codelens, { border = "rounded" })
 end
 
 function M.lsp_config(client, bufnr)
@@ -69,6 +80,17 @@ function M.lsp_config(client, bufnr)
   end
   if client.server_capabilities.documentRangeFormatting then
     vim.api.nvim_buf_set_keymap(bufnr, "v", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  if client.server_capabilities.codeLensProvider then
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI", "InsertLeave" }, {
+      pattern = "<buffer>",
+      callback = function()
+        vim.lsp.codelens.refresh()
+      end,
+      group = vim.api.nvim_create_augroup("LSPCodeLens", { clear = true }),
+    })
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>cl", "<cmd> lua vim.lsp.codelens.run()<CR>", opts)
   end
 
   if client.server_capabilities.documentHighlightProvider then

@@ -26,6 +26,7 @@ function M.setup()
         side_padding = 0,
       },
     },
+    completion = { keyword_length = 3 },
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, item)
@@ -78,9 +79,9 @@ function M.setup()
       comparators = {
         require "cmp_fuzzy_buffer.compare",
         compare.offset,
+        compare.recently_used,
         compare.exact,
         compare.score,
-        compare.recently_used,
         compare.kind,
         compare.sort_text,
         compare.length,
@@ -90,9 +91,9 @@ function M.setup()
     sources = {
       { name = "nvim_lsp_signature_help" },
       { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "fuzzy_buffer" },
+      { name = "luasnip", keyword_length = 2, priority = 50 },
       { name = "buffer" },
+      { name = "fuzzy_buffer" },
       { name = "rg", keyword_length = 3 },
     },
   }
