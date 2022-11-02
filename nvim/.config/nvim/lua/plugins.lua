@@ -119,6 +119,7 @@ function M.setup()
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig",
     }
+    use "mbbill/undotree"
     use "p00f/nvim-ts-rainbow"
     use { "rose-pine/neovim", as = "rose-pine", tag = "v1.*" }
     use { "mhanberg/elixir.nvim", requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" } }
@@ -132,7 +133,7 @@ function M.setup()
         }
       end,
     }
-    use "ThePrimeagen/vim-be-good"
+    use 'ThePrimeagen/vim-be-good'
   end
 
   pcall(require, "packer_compiled")
@@ -159,6 +160,7 @@ function M.setup()
   require("config.tree").setup()
   require("config.dap").setup()
   require("config.todo").setup()
+  require("config.undotree").setup()
   require("config.harpoon").setup()
   require("rust-tools").setup {}
   require("rust-tools.runnables").runnables()

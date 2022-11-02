@@ -14,15 +14,15 @@ tztime local {
 }
 
 load {
-        format = "%1min"
+        format = "Load %1min"
 }
 
 disk "/" {
-        format = "%avail"
+        format = "Disk %avail"
 }
 
 memory {
-        format = "%used | %available"
+        format = "Mem %used::%available"
         threshold_degraded = "1G"
         format_degraded = "MEMORY < %available"
 }

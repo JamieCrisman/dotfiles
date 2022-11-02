@@ -92,3 +92,11 @@ vim.api.nvim_set_keymap(
   ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
   { noremap = true, silent = true }
 )
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "*.heex", ".exs", ".ex" },
+  command = "set filetype=elixir",
+})
+vim.cmd [[ autocmd FileType elixir setlocal formatprg=mix\ format\ - ]]
+vim.cmd [[ autocmd FileType elixir setlocal shiftwidth=2 ]]
+vim.cmd [[ autocmd FileType elixir setlocal tabstop=2 ]]
