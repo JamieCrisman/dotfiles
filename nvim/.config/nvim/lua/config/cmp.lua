@@ -26,7 +26,6 @@ function M.setup()
         side_padding = 0,
       },
     },
-    completion = { keyword_length = 3 },
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, item)
@@ -90,10 +89,10 @@ function M.setup()
     },
     sources = {
       { name = "nvim_lsp_signature_help" },
-      { name = "nvim_lsp" },
+      { name = "nvim_lsp", keyworld_length = 2 },
       { name = "luasnip", keyword_length = 2, priority = 50 },
-      { name = "buffer" },
-      { name = "fuzzy_buffer" },
+      { name = "buffer", keyword_length = 3 },
+      { name = "fuzzy_buffer", keyword_length = 3 },
       { name = "rg", keyword_length = 3 },
     },
   }

@@ -78,12 +78,6 @@ require("kanagawa").setup {}
 vim.cmd "colorscheme kanagawa"
 -- end
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "*.txt", "*.md", "*.tex", "gitcommit", "gitrebase" },
-  command = "setlocal spell",
-  group = vim.api.nvim_create_augroup("Spell", { clear = true }),
-})
-
 vim.api.nvim_set_keymap("v", "J", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "K", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
