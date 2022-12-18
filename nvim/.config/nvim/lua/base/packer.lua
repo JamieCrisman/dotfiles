@@ -39,6 +39,8 @@ return require('packer').startup(function(use)
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },
 
+        {'j-hui/fidget.nvim'},
+
         -- Autocompletion
         { 'hrsh7th/nvim-cmp' },
         { 'hrsh7th/cmp-buffer' },
