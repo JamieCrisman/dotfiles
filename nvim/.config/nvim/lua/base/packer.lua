@@ -2,8 +2,8 @@
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    is_bootstrap = true
+    vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
@@ -47,6 +47,20 @@ return require('packer').startup(function(use)
         { 'williamboman/mason-lspconfig.nvim' },
         { "mfussenegger/nvim-dap" },
         { "jayp0521/mason-nvim-dap.nvim" },
+        { "rcarriga/nvim-dap-ui",
+            requires = { "mfussenegger/nvim-dap" },
+            config = function()
+                require("dapui").setup()
+            end
+        },
+        { "theHamsta/nvim-dap-virtual-text",
+            {
+                requires = { "mfussenegger/nvim-dap" },
+                config = function()
+                    require("nvim-dap-virtual-text").setup()
+                end
+            }
+        },
 
         { 'j-hui/fidget.nvim' },
         { 'simrat39/rust-tools.nvim' },
