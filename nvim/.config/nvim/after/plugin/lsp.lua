@@ -12,6 +12,16 @@ lsp.ensure_installed({
     'golangci_lint_ls',
 })
 
+lsp.configure('sumneko_lua', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            },
+            telemetry = {enable = false}
+        },
+    }
+})
 
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -29,16 +39,22 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set('n', '<leader>ds', function() require('telescope.builtin').lsp_document_symbols() end,{ buffer = bufnr, desc = '[D]ocument [S]ymbols' })
+    vim.keymap.set('n', '<leader>ds', function() require('telescope.builtin').lsp_document_symbols() end,
+        { buffer = bufnr, desc = '[D]ocument [S]ymbols' })
     vim.keymap.set('n', '<leader>ws', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
         { buffer = bufnr, desc = '[W]orkspace [S]ymbols' })
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, { buffer = bufnr, desc = '[W]orkspace [A]dd Folder' })
-    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, { buffer = bufnr, desc = '[W]orkspace [R]emove Folder' })
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
+        { buffer = bufnr, desc = '[W]orkspace [A]dd Folder' })
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
+        { buffer = bufnr, desc = '[W]orkspace [R]emove Folder' })
     vim.keymap.set('n', '<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { buffer = bufnr, desc = '[W]orkspace [L]ist Folders' })
 
 end)
 
-
+local rust_lsp = lsp.build_options('rust_analyzer', {})
 lsp.setup()
+
+require('rust-tools').setup({server = rust_lsp})
+
