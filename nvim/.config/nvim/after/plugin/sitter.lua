@@ -5,6 +5,7 @@ require'nvim-treesitter.configs'.setup {
         "lua",
         "rust",
         "go",
+        "gomod",
         "help",
         "javascript",
         "typescript",

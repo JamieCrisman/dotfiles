@@ -14,22 +14,25 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        -- or                            , branch = '0.1.x',
-        requires = { { 'nvim-lua/plenary.nvim' } }
-    }
-    use {
         "rebelot/kanagawa.nvim",
         config = function()
             vim.cmd('colorscheme kanagawa')
         end
     }
-    use(
-        "nvim-treesitter/nvim-treesitter",
-        { run = ':TSUpdate' }
-    )
+
+
+    use { -- Highlight, edit, and navigate code
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+            pcall(require('nvim-treesitter.install').update { with_sync = true })
+        end,
+    }
+
     use "p00f/nvim-ts-rainbow"
-    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use { -- Additional text objects via treesitter
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        after = 'nvim-treesitter',
+    }
     use "nvim-treesitter/nvim-treesitter-context"
     use "folke/todo-comments.nvim"
     use "simrat39/symbols-outline.nvim"
@@ -40,41 +43,50 @@ return require('packer').startup(function(use)
     use {
         'VonHeikemen/lsp-zero.nvim',
     }
-    use({
-        -- LSP Support
-        { 'neovim/nvim-lspconfig' },
-        { 'williamboman/mason.nvim' },
-        { 'williamboman/mason-lspconfig.nvim' },
-        { "mfussenegger/nvim-dap" },
-        { "jayp0521/mason-nvim-dap.nvim" },
-        { "rcarriga/nvim-dap-ui",
-            requires = { "mfussenegger/nvim-dap" },
-            config = function()
-                require("dapui").setup()
-            end
-        },
-        { "theHamsta/nvim-dap-virtual-text",
-            {
-                requires = { "mfussenegger/nvim-dap" },
-                config = function()
-                    require("nvim-dap-virtual-text").setup()
-                end
-            }
-        },
 
-        { 'j-hui/fidget.nvim' },
-        { 'simrat39/rust-tools.nvim' },
+    -- LSP Support
+    use { 'neovim/nvim-lspconfig' }
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
+    use { "mfussenegger/nvim-dap" }
+    use { "jayp0521/mason-nvim-dap.nvim" }
+    use { "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("dapui").setup()
+        end
+    }
+    use { "theHamsta/nvim-dap-virtual-text",
+        requires = { "mfussenegger/nvim-dap" },
+        config = function()
+            require("nvim-dap-virtual-text").setup()
+        end
+    }
 
-        -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'saadparwaiz1/cmp_luasnip' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-nvim-lua' },
+    use { 'j-hui/fidget.nvim' }
+    use { 'simrat39/rust-tools.nvim' }
 
-        -- Snippets
-        { 'L3MON4D3/LuaSnip' },
-        { 'rafamadriz/friendly-snippets' },
-    })
+    -- Autocompletion
+    use { 'hrsh7th/nvim-cmp' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-nvim-lua' }
+
+    -- Snippets
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'rafamadriz/friendly-snippets' }
+
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+    -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+    if is_bootstrap then
+        require('packer').sync()
+    end
 end)

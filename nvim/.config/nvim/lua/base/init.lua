@@ -22,10 +22,10 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({"BufWritePre"}, {
+autocmd({ "BufWritePre" }, {
     group = piokaGroup,
     pattern = "*",
-    command = "%s/\\s\\+$//e",
+    command = [[%s/\s\+$//e]],
 })
 
 vim.g.netrw_browse_split = 0

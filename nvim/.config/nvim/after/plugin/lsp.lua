@@ -18,7 +18,7 @@ lsp.configure('sumneko_lua', {
             diagnostics = {
                 globals = { 'vim' }
             },
-            telemetry = {enable = false}
+            telemetry = { enable = false }
         },
     }
 })
@@ -39,6 +39,7 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>gr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
     vim.keymap.set('n', '<leader>ds', function() require('telescope.builtin').lsp_document_symbols() end,
         { buffer = bufnr, desc = '[D]ocument [S]ymbols' })
     vim.keymap.set('n', '<leader>ws', function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
@@ -56,5 +57,8 @@ end)
 local rust_lsp = lsp.build_options('rust_analyzer', {})
 lsp.setup()
 
-require('rust-tools').setup({server = rust_lsp})
+vim.diagnostic.config({
+    virtual_text = true,
+})
 
+require('rust-tools').setup({ server = rust_lsp })
