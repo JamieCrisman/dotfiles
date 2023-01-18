@@ -23,6 +23,28 @@ lsp.configure('sumneko_lua', {
     }
 })
 
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+local cmp = require('cmp')
+local cmp_config = lsp.defaults.cmp_config({
+    window = {
+        completion = cmp.config.window.bordered()
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_document_symbol' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'path', limit = 3 },
+        { name = 'rg', limit = 3 },
+        { name = 'nvim_lua'},
+        { name = 'luasnip' }
+    }, {
+        { name = 'buffer', limit = 3, keyword_length = 3 },
+    })
+})
+
+cmp.setup(cmp_config)
+
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
