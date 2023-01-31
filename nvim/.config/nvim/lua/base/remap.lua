@@ -41,3 +41,4 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>ev", "<cmd>:Ex ~/.config/nvim<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ep", "<cmd>e ~/.config/nvim/lua/base/packer.lua<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
