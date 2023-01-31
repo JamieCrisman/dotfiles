@@ -26,17 +26,38 @@ lsp.configure('sumneko_lua', {
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 local cmp = require('cmp')
+local types = require('cmp.types')
+
+local function deprioritize_snippet(entry1, entry2)
+  if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then return false end
+  if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then return true end
+end
+
 local cmp_config = lsp.defaults.cmp_config({
     window = {
         completion = cmp.config.window.bordered()
     },
+    sorting = {
+        comparators = {
+            deprioritize_snippet,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'nvim_lsp_document_symbol' },
         { name = 'nvim_lsp_signature_help' },
+        { name = 'nvim_lsp_document_symbol' },
         { name = 'path', limit = 3 },
         { name = 'rg', limit = 3 },
-        { name = 'nvim_lua'},
+        { name = 'nvim_lua' },
         { name = 'luasnip' }
     }, {
         { name = 'buffer', limit = 3, keyword_length = 3 },
@@ -79,8 +100,8 @@ end)
 local rust_lsp = lsp.build_options('rust_analyzer', {})
 lsp.setup()
 
-vim.diagnostic.config({
-    virtual_text = true,
-})
+-- vim.diagnostic.config({
+--     virtual_text = true,
+-- })
 
 require('rust-tools').setup({ server = rust_lsp })
