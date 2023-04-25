@@ -3,14 +3,14 @@ local lsp = require("lsp-zero")
 lsp.preset('recommended')
 
 lsp.ensure_installed({
-    'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
     'gopls',
     'elixirls',
     'golangci_lint_ls',
 })
 
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -27,8 +27,8 @@ local cmp = require('cmp')
 local types = require('cmp.types')
 
 local function deprioritize_snippet(entry1, entry2)
-  if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then return false end
-  if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then return true end
+    if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then return false end
+    if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then return true end
 end
 
 local cmp_config = lsp.defaults.cmp_config({
@@ -49,20 +49,49 @@ local cmp_config = lsp.defaults.cmp_config({
             cmp.config.compare.order,
         },
     },
+    mapping = cmp.mapping.preset.insert {
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete {},
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+                -- elseif luasnip.expand_or_jumpable() then
+                --     luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+                -- elseif luasnip.jumpable(-1) then
+                --     luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp_document_symbol' },
-        { name = 'path', limit = 3 },
-        { name = 'rg', limit = 3 },
+        { name = 'path',                    limit = 3 },
+        { name = 'rg',                      limit = 3 },
         { name = 'nvim_lua' },
-        { name = 'luasnip' }
+        -- { name = 'luasnip' }
     }, {
         { name = 'buffer', limit = 3, keyword_length = 3 },
     })
 })
 
 cmp.setup(cmp_config)
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
@@ -91,10 +120,26 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set('n', '<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, { buffer = bufnr, desc = '[W]orkspace [L]ist Folders' })
-
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
+        })
+    end
 end)
 
-local rust_lsp = lsp.build_options('rust_analyzer', {})
+local rust_lsp = lsp.build_options('rust_analyzer', {
+    settings = {
+        ["rust-tools"] = {
+            lens = { enable = true, },
+            check = {}
+        }
+    }
+})
 lsp.setup()
 
 -- vim.diagnostic.config({
