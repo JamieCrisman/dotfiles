@@ -77,7 +77,7 @@ local cmp_config = lsp.defaults.cmp_config({
         end, { 'i', 's' }),
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp', limit = 0 },
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp_document_symbol' },
         { name = 'path',                    limit = 3 },
