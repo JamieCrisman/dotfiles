@@ -89,8 +89,7 @@ return require('packer').startup(function(use)
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-    -- fun
-    use("eandrju/cellular-automaton.nvim")
+    -- I hate modals, but also modals
     use { 'stevearc/dressing.nvim' }
 
     if is_bootstrap then
