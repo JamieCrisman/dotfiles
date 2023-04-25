@@ -18,11 +18,11 @@ require('telescope').setup {
         }
     }
 }
-vim.keymap.set('n', ';f', builtin.find_files, { desc = 'find files' })
-vim.keymap.set('n', ';s', builtin.grep_string, { desc = 'Project Search' })
-vim.keymap.set('n', ';g', builtin.live_grep, { desc = 'Project Grep' })
-vim.keymap.set("n", ";h", builtin.help_tags, { noremap = true, silent = true })
-vim.keymap.set('n', ';d', builtin.diagnostics, { desc = 'Project Diagnostics' })
+vim.keymap.set('n', '<leader>;f', builtin.find_files, { desc = 'find files' })
+vim.keymap.set('n', '<leader>;s', builtin.grep_string, { desc = 'Project Search' })
+vim.keymap.set('n', '<leader>g', builtin.live_grep, { desc = 'Project Grep' })
+vim.keymap.set("n", "<leader>h", builtin.help_tags, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>;d', builtin.diagnostics, { desc = 'Project Diagnostics' })
 vim.keymap.set("n", "<leader>b", builtin.buffers, { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set("n", "<leader>P", vim.cmd.Telescope, {})
