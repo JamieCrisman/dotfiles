@@ -25,7 +25,7 @@ return {
         },
         config = function()
             -- local types = require('cmp.types')
-
+            --
             -- local function deprioritize_snippet(entry1, entry2)
             --     if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then return false end
             --     if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then return true end
@@ -35,6 +35,7 @@ return {
             -- And you can configure cmp even more, if you want to.
             local cmp = require('cmp')
             local cmp_action = require('lsp-zero.cmp').action()
+            local luasnip = require('luasnip')
 
             cmp.setup({
                 window = {
@@ -54,19 +55,41 @@ return {
                 --         cmp.config.compare.order,
                 --     },
                 -- },
-                mapping = {
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+                mapping = cmp.mapping.preset.insert {
+                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete {},
+                    ['<CR>'] = cmp.mapping.confirm {
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true,
+                    },
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
                 },
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp',                limit = 0 },
-                    { name = 'nvim_lsp_signature_help' },
+                    { name = 'nvim_lsp',                limit = 0,          max_item_count = 10 },
+                    { name = 'nvim_lsp_signature_help', max_item_count = 3 },
                     { name = 'nvim_lsp_document_symbol' },
-                    { name = 'path',                    limit = 3 },
-                    { name = 'rg',                      limit = 3 },
+                    { name = 'path',                    limit = 3,          max_item_count = 3 },
+                    { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
                     { name = 'nvim_lua' },
-                    -- { name = 'luasnip' }
+                    { name = 'luasnip' }
                 }, {
                     { name = 'buffer', limit = 3, keyword_length = 3 },
                 })

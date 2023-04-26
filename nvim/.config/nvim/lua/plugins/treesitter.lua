@@ -5,7 +5,9 @@ return {
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
             "nvim-treesitter/nvim-treesitter-context",
+            "p00f/nvim-ts-rainbow",
         },
+        lazy = true,
         build = ":TSUpdate",
         config = function()
             require 'nvim-treesitter.configs'.setup {
