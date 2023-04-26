@@ -84,11 +84,11 @@ return {
                 },
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp',                limit = 0,          max_item_count = 10 },
+                    { name = 'nvim_lua' },
                     { name = 'nvim_lsp_signature_help', max_item_count = 3 },
                     { name = 'nvim_lsp_document_symbol' },
                     { name = 'path',                    limit = 3,          max_item_count = 3 },
                     { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
-                    { name = 'nvim_lua' },
                     { name = 'luasnip' }
                 }, {
                     { name = 'buffer', limit = 3, keyword_length = 3 },
