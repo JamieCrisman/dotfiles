@@ -66,8 +66,8 @@ return {
                     ['<Tab>'] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
+                            -- elseif luasnip.expand_or_jumpable() then
+                            --     luasnip.expand_or_jump()
                         else
                             fallback()
                         end
@@ -75,17 +75,17 @@ return {
                     ['<S-Tab>'] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
+                            -- elseif luasnip.jumpable(-1) then
+                            --     luasnip.jump(-1)
                         else
                             fallback()
                         end
                     end, { 'i', 's' }),
                 },
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp',                limit = 0,          max_item_count = 10 },
+                    { name = 'nvim_lsp',                limit = 0, },
                     { name = 'nvim_lua' },
-                    { name = 'nvim_lsp_signature_help', max_item_count = 3 },
+                    { name = 'nvim_lsp_signature_help', max_item_count = 10 },
                     { name = 'nvim_lsp_document_symbol' },
                     { name = 'path',                    limit = 3,          max_item_count = 3 },
                     { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
