@@ -114,8 +114,6 @@ return {
             },
         },
         config = function()
-            -- This is where all the LSP shenanigans will live
-
             -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
             local lsp = require('lsp-zero')
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -163,6 +161,7 @@ return {
 
             -- (Optional) Configure lua language server for neovim
             require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+            require('lspconfig').zls.setup({})
 
             local rust_lsp = lsp.build_options('rust_analyzer', {
                 settings = {
