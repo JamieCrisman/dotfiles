@@ -1,6 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+[ -f "$HOME/system-specific.sh" ] && source $HOME/system-specific.sh
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -95,10 +97,9 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm autojump fzf zsh-interactive-cd golang rust tmux asdf mix)
+plugins=(git nvm autojump fzf zsh-interactive-cd golang rust tmux asdf mix direnv)
 
 source $ZSH/oh-my-zsh.sh
-[ -f "$HOME/system-specific.sh" ] && source $HOME/system-specific.sh
 [ -x "$(command -v batcat)" ] && alias cat="batcat"
 [ -x "$(command -v exa)" ] && alias ls="exa"
 
@@ -110,11 +111,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
+## if [[ -n $SSH_CONNECTION ]]; then
+##   export EDITOR='vim'
+## else
    export EDITOR='nvim'
- fi
+## fi
 
 
 mkdircd() {
@@ -137,3 +138,7 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias nivm="nvim"
 
 export GPG_TTY=$TTY
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -83,7 +83,7 @@ return {
                     end, { 'i', 's' }),
                 },
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp',                limit = 0, },
+                    { name = 'nvim_lsp',                limit = 1, },
                     { name = 'nvim_lua' },
                     { name = 'nvim_lsp_signature_help', max_item_count = 10 },
                     { name = 'nvim_lsp_document_symbol' },
@@ -162,6 +162,7 @@ return {
             -- (Optional) Configure lua language server for neovim
             require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
             require('lspconfig').zls.setup({})
+            require('lspconfig').tsserver.setup({})
 
             local rust_lsp = lsp.build_options('rust_analyzer', {
                 settings = {

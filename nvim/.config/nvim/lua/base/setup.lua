@@ -33,3 +33,7 @@ vim.opt.colorcolumn = "80"
 vim.o.mouse = "a"
 
 vim.g.indent_blankline_char = "┊"
+
+vim.wo.wrap = true
+vim.wo.linebreak = true
+vim.wo.list = false
