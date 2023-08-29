@@ -36,6 +36,8 @@ bindkey "\e[1;3C" forward-word
 
 # so auto complete sees .hidden files
 setopt globdots
+# so ctrl-d doesn't kill tmux
+setopt ignoreeof
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

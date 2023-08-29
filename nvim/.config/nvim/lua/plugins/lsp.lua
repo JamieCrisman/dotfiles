@@ -39,7 +39,13 @@ return {
 
             cmp.setup({
                 window = {
-                    completion = cmp.config.window.bordered()
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                },
+                snippet = {
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end,
                 },
                 -- sorting = {
                 --     comparators = {
@@ -56,13 +62,15 @@ return {
                 --     },
                 -- },
                 mapping = cmp.mapping.preset.insert {
-                    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-Space>'] = cmp.mapping.complete {},
+                    -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+                    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<M-Space>'] = cmp.mapping.complete {},
                     ['<CR>'] = cmp.mapping.confirm {
                         behavior = cmp.ConfirmBehavior.Replace,
                         select = true,
                     },
+                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
                     ['<Tab>'] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
@@ -85,7 +93,7 @@ return {
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp',                limit = 1, },
                     { name = 'nvim_lua' },
-                    { name = 'nvim_lsp_signature_help', max_item_count = 10 },
+                    { name = 'nvim_lsp_signature_help', max_item_count = 15 },
                     { name = 'nvim_lsp_document_symbol' },
                     { name = 'path',                    limit = 3,          max_item_count = 3 },
                     { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
@@ -101,7 +109,7 @@ return {
         cmd = 'LspInfo',
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
-            { 'j-hui/fidget.nvim',                opts = {} },
+            { 'j-hui/fidget.nvim',                tag = "legacy", opts = {} },
             'folke/neodev.nvim',
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'williamboman/mason-lspconfig.nvim' },
