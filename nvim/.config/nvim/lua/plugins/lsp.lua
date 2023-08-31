@@ -18,6 +18,7 @@ return {
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-nvim-lua',
             'L3MON4D3/LuaSnip',
+            { "rafamadriz/friendly-snippets" },
             'saadparwaiz1/cmp_luasnip',
             'lukas-reineke/cmp-rg',
             'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -35,6 +36,7 @@ return {
             -- And you can configure cmp even more, if you want to.
             local cmp = require('cmp')
             local cmp_action = require('lsp-zero.cmp').action()
+            require('luasnip.loaders.from_vscode').lazy_load()
             local luasnip = require('luasnip')
 
             cmp.setup({
@@ -64,7 +66,7 @@ return {
                 mapping = cmp.mapping.preset.insert {
                     -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                     -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<M-Space>'] = cmp.mapping.complete {},
+                    ['<C-CR>'] = cmp.mapping.complete {},
                     ['<CR>'] = cmp.mapping.confirm {
                         behavior = cmp.ConfirmBehavior.Replace,
                         select = true,
@@ -94,10 +96,10 @@ return {
                     { name = 'nvim_lsp',                limit = 1, },
                     { name = 'nvim_lua' },
                     { name = 'nvim_lsp_signature_help', max_item_count = 15 },
+                    { name = 'luasnip' },
                     { name = 'nvim_lsp_document_symbol' },
                     { name = 'path',                    limit = 3,          max_item_count = 3 },
                     { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
-                    { name = 'luasnip' }
                 }, {
                     { name = 'buffer', limit = 3, keyword_length = 3 },
                 })
