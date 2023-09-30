@@ -173,6 +173,7 @@ return {
             require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
             require('lspconfig').zls.setup({})
             require('lspconfig').tsserver.setup({})
+            require('lspconfig').gopls.setup({})
 
             local rust_lsp = lsp.build_options('rust_analyzer', {
                 settings = {
