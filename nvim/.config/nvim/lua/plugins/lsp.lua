@@ -1,14 +1,18 @@
 return {
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        branch = 'v3.x',
         lazy = true,
-        config = function()
-            -- This is where you modify the settings for lsp-zero
-            -- Note: autocompletion settings will not take effect
-
-            require('lsp-zero.settings').preset({})
+        config = false,
+        init = function()
+            vim.g.lsp_zero_extend_cmp = 0
+            vim.g.lsp_zero_extend_lspconfig = 0
         end
+    },
+    {
+        'williamboman/mason.nvim',
+        lazy = false,
+        config = true,
     },
     {
         -- Autocompletion
@@ -108,7 +112,7 @@ return {
     },
     {
         'neovim/nvim-lspconfig',
-        cmd = 'LspInfo',
+        cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             { 'j-hui/fidget.nvim',                tag = "legacy", opts = {} },
@@ -116,16 +120,11 @@ return {
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'williamboman/mason-lspconfig.nvim' },
             { 'simrat39/rust-tools.nvim' },
-            {
-                'williamboman/mason.nvim',
-                build = function()
-                    pcall(vim.cmd, 'MasonUpdate')
-                end,
-            },
         },
         config = function()
             -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
             local lsp = require('lsp-zero')
+            lsp.extend_lspconfig()
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
             lsp.on_attach(function(client, bufnr)
@@ -169,23 +168,34 @@ return {
                 end
             end)
 
-            -- (Optional) Configure lua language server for neovim
-            require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-            require('lspconfig').zls.setup({})
-            require('lspconfig').tsserver.setup({})
-            require('lspconfig').gopls.setup({})
+            require('mason-lspconfig').setup({
+                ensure_installed = {},
+                handlers = {
+                    lsp.default_setup,
+                    lua_ls = function()
+                        require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+                    end,
+                    rust_analyzer = function()
+                        local rust_lsp = lsp.build_options('rust_analyzer', {
+                            settings = {
+                                ["rust-tools"] = {
+                                    lens = { enable = true, },
+                                    check = {}
+                                }
+                            }
+                        })
 
-            local rust_lsp = lsp.build_options('rust_analyzer', {
-                settings = {
-                    ["rust-tools"] = {
-                        lens = { enable = true, },
-                        check = {}
-                    }
+                        require('rust-tools').setup({ server = rust_lsp })
+                    end
                 }
             })
-            lsp.setup()
+            -- (Optional) Configure lua language server for neovim
+            -- require('lspconfig').zls.setup({})
+            -- require('lspconfig').tsserver.setup({})
+            -- require('lspconfig').gopls.setup({})
 
-            require('rust-tools').setup({ server = rust_lsp })
+
+            -- lsp.setup()
         end
     }
 }

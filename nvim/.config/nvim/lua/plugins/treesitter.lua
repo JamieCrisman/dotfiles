@@ -5,7 +5,6 @@ return {
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
             "nvim-treesitter/nvim-treesitter-context",
-            "p00f/nvim-ts-rainbow",
         },
         build = ":TSUpdate",
         config = function()
@@ -40,35 +39,14 @@ return {
                 ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
                 -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                rainbow = {
-                    enable = true,
-                    max_file_lines = 8000,
-                    colors = {
-                        "#E06C75",
-                        "#E5C07B",
-                        "#98C379",
-                        "#56B6C2",
-                        "#61AFEF",
-                        "#C678DD",
-                        "#E06C75",
-                        -- "#FF4F69",
-                        -- "#c45d9f",
-                        -- "#EE6A7C",
-                        -- "#FFA7A5",
-                        -- "#FFE07E",
-                        -- "#FFE7D6",
-                        -- "#72DCBB",
-                    },
-                },
-
+                -- highlight = {
+                --     enable = true,
+                --     -- additional_vim_regex_highlighting = false,
+                -- },
+                --
                 indent = {
                     enable = true,
                 },
-                autopairs = { enable = true },
                 textobjects = {
                     select = {
                         enable = true,
@@ -104,7 +82,9 @@ return {
                 },
             }
 
-            require("treesitter-context").setup {}
+            require("treesitter-context").setup {
+                max_lines = 3
+            }
         end
     }
 }
