@@ -172,6 +172,14 @@ return {
                 ensure_installed = {},
                 handlers = {
                     lsp.default_setup,
+                    gopls = function()
+                        require('lspconfig').gopls.setup({
+                            -- gopls_cmd = { install_root_dir .. '/go/gopls' },
+                            fillstruct = 'gopls',
+                            dap_debug = true,
+                            dap_debug_gui = true
+                        })
+                    end,
                     lua_ls = function()
                         require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
                     end,
