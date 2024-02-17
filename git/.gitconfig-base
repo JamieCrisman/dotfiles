@@ -1,5 +1,3 @@
-[core]
-    excludeFiles = .DS_Store
 [commit]
     verbose = true
 [push]
