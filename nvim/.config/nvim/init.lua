@@ -32,26 +32,6 @@ require('lazy').setup({
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
 
-    -- NOTE: This is where your plugins related to LSP can be installed.
-    --  The configuration is done below. Search for lspconfig to find it below.
-    -- {
-    --     -- LSP Configuration & Plugins
-    --     'neovim/nvim-lspconfig',
-    --     dependencies = {
-    --         -- Automatically install LSPs to stdpath for neovim
-    --         { 'williamboman/mason.nvim', config = true },
-    --         'williamboman/mason-lspconfig.nvim',
-
-    --         -- Useful status updates for LSP
-    --         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    --         { 'j-hui/fidget.nvim',       opts = {} },
-
-    --         -- Additional lua configuration, makes nvim stuff amazing!
-    --         'folke/neodev.nvim',
-    --     },
-    -- },
-
-
     -- Useful plugin to show you pending keybinds.
     { 'folke/which-key.nvim',  opts = {} },
     {
@@ -68,16 +48,6 @@ require('lazy').setup({
             },
         },
     },
-
-    -- {
-    -- -- Theme inspired by Atom
-    --     'navarasu/onedark.nvim',
-    --     priority = 1000,
-    --     config = function()
-    --         vim.cmd.colorscheme 'onedark'
-    --     end,
-    -- },
-
     {
         -- Set lualine as statusline
         'nvim-lualine/lualine.nvim',
@@ -91,17 +61,6 @@ require('lazy').setup({
             },
         },
     },
-
-    -- {
-    --     -- Add indentation guides even on blank lines
-    --     'lukas-reineke/indent-blankline.nvim',
-    --     -- Enable `lukas-reineke/indent-blankline.nvim`
-    --     -- See `:help indent_blankline.txt`
-    --     opts = {
-    --         char = '┊',
-    --         show_trailing_blankline_indent = false,
-    --     },
-    -- },
 
     -- "gc" to comment visual regions/lines
     { 'numToStr/Comment.nvim', opts = {} },

@@ -17,12 +17,14 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<ESC>', '<cmd>nohlsearch<CR>')
 vim.opt.incsearch = true
+vim.opt.ignorecase = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
@@ -37,3 +39,5 @@ vim.g.indent_blankline_char = "┊"
 vim.wo.wrap = true
 vim.wo.linebreak = true
 vim.wo.list = false
+
+vim.g.have_nerd_font = true

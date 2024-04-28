@@ -1,6 +1,16 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ' '
-vim.keymap.set("n", "<leader>;v", vim.cmd.Ex)
+vim.keymap.set("n", "\\", vim.cmd.Ex)
+
+vim.keymap.set("n", "[d", vim.diagnostic.goto_next, { desc = "prev diagnostics" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, { desc = "next diagnostics" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "diagnostic [e]rrors" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "diagnostic [q]uick fix list" })
+
+vim.keymap.set('n', '<M-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<M-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<M-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<M-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
