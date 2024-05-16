@@ -7,6 +7,8 @@ return {
     },
     config = function()
         require("go").setup()
+        vim.api.nvim_set_hl(0, 'goCoverageUncovered', { fg = "#e46876" })
+        vim.api.nvim_set_hl(0, 'goCoverageCovered', { fg = "#98bb6c" })
     end,
     event = { "CmdlineEnter" },
     ft = { "go", 'gomod' },

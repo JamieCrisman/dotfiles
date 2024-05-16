@@ -30,7 +30,7 @@ autocmd({ "BufWritePre" }, {
 
 vim.g.netrw_browse_split = 0
 --vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 25
+vim.g.netrw_winsize = 30
 
 vim.cmd([[:command WQ wq]])
 vim.cmd([[:command Wq wq]])
