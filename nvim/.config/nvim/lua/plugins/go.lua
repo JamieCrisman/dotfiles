@@ -6,7 +6,12 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-        require("go").setup()
+        require("go").setup({
+            lsp_inlay_hints = {
+                enable = false,
+                style = "inlay",
+            },
+        })
         vim.api.nvim_set_hl(0, 'goCoverageUncovered', { fg = "#e46876" })
         vim.api.nvim_set_hl(0, 'goCoverageCovered', { fg = "#98bb6c" })
     end,

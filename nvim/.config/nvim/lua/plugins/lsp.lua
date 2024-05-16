@@ -129,11 +129,11 @@ return {
         },
         config = function()
             -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-            local lsp = require('lsp-zero')
-            lsp.extend_lspconfig()
+            local lspZ = require('lsp-zero')
+            lspZ.extend_lspconfig()
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-            lsp.on_attach(function(client, bufnr)
+            lspZ.on_attach(function(client, bufnr)
                 -- lsp.default_keymaps({ buffer = bufnr })
                 local opts = { buffer = bufnr, remap = false }
 
@@ -170,29 +170,45 @@ return {
                     })
                 end
                 if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-                    vim.keymap.set('n', '<leader>th', function()
-                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-                    end, '[T]oggle Inlay [H]ints')
+                    vim.lsp.inlay_hint.enable(true)
                 end
             end)
 
             require('mason-lspconfig').setup({
                 ensure_installed = {},
                 handlers = {
-                    lsp.default_setup,
+                    lspZ.default_setup,
                     gopls = function()
                         require('lspconfig').gopls.setup({
                             -- gopls_cmd = { install_root_dir .. '/go/gopls' },
+                            settings = {
+                                gopls = {
+                                    hints = {
+                                        assignVariableTypes = true,
+                                        compositeLiteralFields = true,
+                                        compositeLiteralTypes = true,
+                                        constantValues = true,
+                                        functionTypeParameters = true,
+                                        parameterNames = true,
+                                        rangeVariableTypes = true,
+                                    },
+                                    analyses = {
+                                        fieldalignment = false,
+                                        nilness = true,
+                                        useany = true,
+                                    },
+                                },
+                            },
                             fillstruct = 'gopls',
                             dap_debug = true,
-                            dap_debug_gui = true
+                            dap_debug_gui = true,
                         })
                     end,
                     lua_ls = function()
-                        require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+                        require('lspconfig').lua_ls.setup(lspZ.nvim_lua_ls())
                     end,
                     rust_analyzer = function()
-                        local rust_lsp = lsp.build_options('rust_analyzer', {
+                        local rust_lsp = lspZ.build_options('rust_analyzer', {
                             settings = {
                                 ["rust-tools"] = {
                                     lens = { enable = true, },
