@@ -18,23 +18,11 @@ return {
             'hrsh7th/cmp-nvim-lua',
             'L3MON4D3/LuaSnip',
             { "rafamadriz/friendly-snippets" },
-            'saadparwaiz1/cmp_luasnip',
-            'lukas-reineke/cmp-rg',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-nvim-lsp-document-symbol'
+            'saadparwaiz1/cmp_luasnip'
         },
         config = function()
-            -- local types = require('cmp.types')
-            --
-            -- local function deprioritize_snippet(entry1, entry2)
-            --     if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then return false end
-            --     if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then return true end
-            -- end
             require('lsp-zero.cmp').extend()
-
-            -- And you can configure cmp even more, if you want to.
             local cmp = require('cmp')
-            local cmp_action = require('lsp-zero.cmp').action()
             require('luasnip.loaders.from_vscode').lazy_load()
             local luasnip = require('luasnip')
 
@@ -98,15 +86,11 @@ return {
                     end, { 'i', 's' }),
                 },
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp',                limit = 1, },
-                    { name = 'nvim_lsp_signature_help', max_item_count = 15 },
-                    { name = 'nvim_lua' },
+                    { name = 'nvim_lsp' },
                     { name = 'luasnip' },
-                    { name = 'nvim_lsp_document_symbol' },
-                    { name = 'path',                    limit = 3,          max_item_count = 3 },
-                    { name = 'rg',                      keyword_length = 2, max_item_count = 5 },
+                    { name = 'path' },
                 }, {
-                    { name = 'buffer', limit = 3, keyword_length = 3 },
+                    { name = 'buffer' },
                 })
             })
         end
@@ -180,7 +164,6 @@ return {
                     lspZ.default_setup,
                     gopls = function()
                         require('lspconfig').gopls.setup({
-                            -- gopls_cmd = { install_root_dir .. '/go/gopls' },
                             settings = {
                                 gopls = {
                                     hints = {
@@ -222,7 +205,15 @@ return {
                 }
             })
             -- (Optional) Configure lua language server for neovim
-            require('lspconfig').zls.setup({})
+            require('lspconfig').zls.setup({
+                settings = {
+                    zls = {
+                        enable_inlay_hints = true,
+                        enable_snippets = true,
+                        warn_style = true,
+                    },
+                },
+            })
             -- require('lspconfig').tsserver.setup({})
             -- require('lspconfig').gopls.setup({})
 
