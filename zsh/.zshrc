@@ -124,6 +124,16 @@ mkdircd() {
   mkdir -p $1 && cd $1
 }
 
+if [[ -n "$IN_NIX_SHELL" ]]; then
+  label="nix"
+  if [[ "$name" != "$label" ]]; then
+    label="$label"
+  fi
+  export PS1=$'%{$fg[green]%}'"$label$PS1"
+  unset label
+fi
+alias nxd='nix develop --command "zsh"'
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -138,6 +148,9 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 
 # because this happens a lot for me for some reason
 alias nivm="nvim"
+
+alias pinote="nvim scp://ciel@rpi/writing/notes.txt"
+alias httpserv="python3 -m http.server 9000"
 
 export GPG_TTY=$TTY
 

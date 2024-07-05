@@ -211,6 +211,8 @@ return {
                         enable_inlay_hints = true,
                         enable_snippets = true,
                         warn_style = true,
+                        enable_build_on_save = true,
+                        build_on_save_step = "check"
                     },
                 },
             })
