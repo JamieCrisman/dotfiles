@@ -65,11 +65,33 @@ return {
             },
         }
         -- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
-        vim.keymap.set("n", "<F7>", dapui.toggle)
+        vim.keymap.set("n", "<F8>", dapui.toggle)
 
         dap.listeners.after.event_initialized['dapui_config'] = dapui.open
         dap.listeners.before.event_terminated['dapui_config'] = dapui.close
         dap.listeners.before.event_exited['dapui_config'] = dapui.close
+        dap.configurations.zig = {
+            {
+                name = "debug",
+                type = "codelldb",
+                request = "launch",
+                preLaunchTask = "zig build",
+                program = function()
+                    local paths = vim.split(vim.fn.glob(vim.fn.getcwd() .. '/zig-out/bin/*'), '\n')
+                    if #paths == 1 then
+                        return paths[1]
+                    end
+                    return vim.fn.input("path to executable: ", vim.fn.getcwd() .. '/zig-out/bin/', 'file')
+                end,
+                cwd = "${workspaceFolder}",
+                stopAtBeginningOfMainSubprogram = false,
+            },
+        }
+        local defaultcodelldb = dap.adapters.codelldb
+        dap.adapters.codelldb = function(cb, config)
+            if config.preLaunchTask then vim.fn.system(config.preLaunchTask) end
+            cb(defaultcodelldb)
+        end
 
         -- Install golang specific config
         require('dap-go').setup()
