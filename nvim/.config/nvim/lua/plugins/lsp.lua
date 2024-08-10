@@ -18,7 +18,7 @@ return {
             'hrsh7th/cmp-nvim-lua',
             'L3MON4D3/LuaSnip',
             { "rafamadriz/friendly-snippets" },
-            'saadparwaiz1/cmp_luasnip'
+            'saadparwaiz1/cmp_luasnip',
         },
         config = function()
             require('lsp-zero.cmp').extend()
