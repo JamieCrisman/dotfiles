@@ -26,10 +26,9 @@ npm() {
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
   npm "$@"
 }
-export NVM_NO_USE=true
 export NVM_LAZY_LOAD=true
 export NVM_COMPLETION=true
-export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvm' 'npm' 'node' 'yarn' 'nvim' 'vim' 'code')
+# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvm' 'npm' 'node' 'yarn' 'nvim' 'vim' 'code')
 
 export GOPATH=$(go env GOPATH)
 export PATH=$PATH:$(go env GOPATH)/bin
@@ -173,7 +172,3 @@ alias pinote="nvim scp://ciel@rpi/writing/notes.txt"
 alias httpserv="python3 -m http.server 9000"
 
 export GPG_TTY=$TTY
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
