@@ -116,6 +116,7 @@ return {
             local lspZ = require('lsp-zero')
             lspZ.extend_lspconfig()
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+            vim.filetype.add({ extension = { templ = "templ" } })
 
             lspZ.on_attach(function(client, bufnr)
                 -- lsp.default_keymaps({ buffer = bufnr })
@@ -185,6 +186,20 @@ return {
                             fillstruct = 'gopls',
                             dap_debug = true,
                             dap_debug_gui = true,
+                        })
+                    end,
+                    -- html = function()
+                    --     require('lspconfig').html.setup({
+                    --         capabilities = lspZ.capabilities,
+                    --         on_attach = lspZ.on_attach,
+                    --         filetypes = { "html", "templ" },
+                    --     })
+                    -- end,
+                    htmx = function()
+                        require('lspconfig').htmx.setup({
+                            capabilities = lspZ.capabilities,
+                            on_attach = lspZ.on_attach,
+                            filetypes = { "html", "templ" },
                         })
                     end,
                     lua_ls = function()
